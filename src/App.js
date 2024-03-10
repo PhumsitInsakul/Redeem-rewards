@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import OTPModal from './OTPModal';
 
 function App() {
+  const [showOTPModal, setShowOTPModal] = useState(false);
+
   const [studentData, setStudentData] = useState({
     cardId: '',
     studentId: '',
@@ -91,10 +94,20 @@ function App() {
     setSecondProducts(secondProducts.map(product => ({ ...product, quantity: 0 })));
     setThirdProducts(thirdProducts.map(product => ({ ...product, quantity: 0 })));
     setFourthProducts(fourthProducts.map(product => ({ ...product, quantity: 0 })));
+
+    setShowOTPModal(true);
   };
 
   const handleGoBack = () => {
     window.history.back();
+  };
+
+  const handleOTPSubmit = (otp) => {
+    setShowOTPModal(false);
+  };
+
+  const handleOTPClose = () => {
+    setShowOTPModal(false);
   };
 
   return (
@@ -228,6 +241,9 @@ function App() {
           </div>
         </div>
       </div>
+      {showOTPModal && (
+        <OTPModal onClose={handleOTPClose} onSubmit={handleOTPSubmit} />
+      )}
     </div>
   );
 }
