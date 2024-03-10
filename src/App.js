@@ -1,7 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
+  const [studentData, setStudentData] = useState({
+    cardId: '',
+    studentId: '',
+    studentName: '',
+    studentPoints: ''
+  });
+
+  useEffect(() => {
+    fetch('')
+      .then(response => response.json())
+      .then(data => {
+        setStudentData(data);
+      })
+      .catch(error => console.error('Error fetching student data:', error));
+  }, []);
+
   const [firstProducts, setFirstProducts] = useState([
     { name: 'อเมริกาโน่', points: 600, quantity: 0 },
     { name: 'เอสเปรสโซ่', points: 650, quantity: 0 },
@@ -42,9 +58,24 @@ function App() {
 
   const increaseQuantity = (index, productList, setProductList) => {
     const updatedProducts = [...productList];
-    updatedProducts[index].quantity += 1;
-    setProductList(updatedProducts);
+    const selectedProduct = updatedProducts[index];
+    const totalPointsRequired = selectedProduct.points * (selectedProduct.quantity + 1);
+    
+    if (parseInt(studentData.studentPoints) >= totalPointsRequired) {
+      updatedProducts[index].quantity += 1;
+      setProductList(updatedProducts);
+      
+      const remainingPoints = parseInt(studentData.studentPoints) - totalPointsRequired;
+      
+      setStudentData(prevStudentData => ({
+        ...prevStudentData,
+        studentPoints: remainingPoints.toString()
+      }));
+    } else {
+      alert("คุณมีคะแนนไม่เพียงพอที่จะซื้อสินค้านี้");
+    }
   };
+  
 
   // Back-end รับข้อมูล allProducts
   const handleSubmit = () => {
@@ -77,13 +108,13 @@ function App() {
         <h2 className='main-header'>รายการของรางวัล</h2>
         <div className="input-row">
           <label htmlFor="studentCardId">รหัสบัตร:</label>
-          <input type="text" id="studentCardId" />
+          <input type="text" id="studentCardId" value={studentData.cardId} />
           <label htmlFor="studentId">รหัสนิสิต:</label>
-          <input type="text" id="studentId" />
+          <input type="text" id="studentId" value={studentData.studentId} />
           <label htmlFor="studentName">ชื่อ-นามสกุล:</label>
-          <input type="text" id="studentName" />
+          <input type="text" id="studentName" value={studentData.studentName} />
           <label htmlFor="studentPoints">คะแนน:</label>
-          <input type="text" id="studentPoints" />
+          <input type="text" id="studentPoints" value={studentData.studentPoints} />
         </div>
         <div className="product-list-container">
           <div className="product-list">
