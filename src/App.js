@@ -10,7 +10,7 @@ function App() {
   });
 
   useEffect(() => {
-    fetch('')
+    fetch('...') //fetch ข้อมูลจาก ftp server มาลง cardId - studentPoints
       .then(response => response.json())
       .then(data => {
         setStudentData(data);
@@ -77,7 +77,7 @@ function App() {
   };
   
 
-  // Back-end รับข้อมูล allProducts
+  // Back-end รับข้อมูล allProducts ในหน้านี้
   const handleSubmit = () => {
     const allProducts = [
       ...firstProducts,
@@ -91,6 +91,10 @@ function App() {
     setSecondProducts(secondProducts.map(product => ({ ...product, quantity: 0 })));
     setThirdProducts(thirdProducts.map(product => ({ ...product, quantity: 0 })));
     setFourthProducts(fourthProducts.map(product => ({ ...product, quantity: 0 })));
+  };
+
+  const handleGoBack = () => {
+    window.history.back();
   };
 
   return (
@@ -216,7 +220,12 @@ function App() {
           
         </div>
         <div className="submit-container">
-          <button className="submit-button" onClick={handleSubmit}>ตกลง</button>
+          <div>
+            <button className="back-button" onClick={handleGoBack}>กลับ</button>
+          </div>
+          <div>
+            <button className="submit-button" onClick={handleSubmit}>ตกลง</button>
+          </div>
         </div>
       </div>
     </div>
