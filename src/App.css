@@ -1,38 +1,176 @@
-.App {
+.app {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  flex: 1;
+  background-color: #0ABAB5;
+  color: white;
+  position: relative; 
+}
+
+.sidebar-circle {
+  position: absolute;
+  left: 50%;
+  background-color: #D9D9D9;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #000000;
+  margin-top: 10%;
+  margin-left: -60px; 
+}
+
+
+.sidebar-category {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  background-color: #D9D9D9;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  color: #000000;
+  font-size: 32px;
+  padding: 10px 0;
+  margin-top: 50%;
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar-category {
+    font-size: 24px;
+    margin-top: 40%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .sidebar-category {
+    font-size: 20px;
+    margin-top: 30%; 
+  }
+}
+
+.main-content {
+  flex: 4;
+  height: 100vh;
+  overflow-y: auto; 
+}
+
+.product-list-container {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center; 
+}
+
+.product-list {
+  width: 45%;
+  margin: 0 10px 20px;
+}
+
+.main-header {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.product-list {
+  width: 35%; 
+  display: inline-block;
+  margin-right: 20px;
+  margin-bottom: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+th, td {
+  padding: 8px;
+  text-align: center;
+  background-color: transparent;
+  font-size: 16px;  
+}
+
+th {
+  background-color: #0ABAB5;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+tr:nth-child(even) {
+  background-color:  #f2f2f2;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
+
+.decrease {
+  background-color: rgb(255, 57, 73); 
+  color: white;
+  border-radius: 5px; 
+  border: 1px solid transparent; 
+}
+
+.increase {
+  background-color: rgb(116, 213, 37); 
+  color: white;
+  border-radius: 5px; 
+  border: 1px solid transparent; 
+}
+
+input {
+  width: 40px;
+  text-align: center;
+  background-color: transparent;
+  border-radius: 5px; 
+  border: 1px solid #a4a4a4; 
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.submit-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px; 
+  margin-right: 10%;
+  background-color: transparent;
+  margin-bottom: 5%;
+}
+
+.submit-button {
+  font-size: 24px; 
+  border: 2px solid transparent; 
+  padding: 5px 20px; 
+  border-radius: 10px; 
+  background-color: rgb(116, 213, 37);
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  margin-left: 90px;
+  margin-right: 90px;
+  background-color: transparent;
+}
+
+.input-row label {
+  margin-left: 15px;
+  background-color: transparent;
+}
+
+.input-row input {
+  width: 150px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #a4a4a4;
+  background-color: transparent;
+}
+
