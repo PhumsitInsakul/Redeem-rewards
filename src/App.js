@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import OTPModal from './OTPModal';
+import MessageModal from './MessageModal';
 
 function App() {
   const [showOTPModal, setShowOTPModal] = useState(false);
+  const [showMessageModal, setShowMessageModal] = useState(false);
 
   const [studentData, setStudentData] = useState({
     cardId: '',
@@ -55,9 +57,21 @@ function App() {
 
   const decreaseQuantity = (index, productList, setProductList) => {
     const updatedProducts = [...productList];
-    updatedProducts[index].quantity = Math.max(updatedProducts[index].quantity - 1, 0);
-    setProductList(updatedProducts);
+    const selectedProduct = updatedProducts[index];
+  
+    if (selectedProduct.quantity > 0) {
+      updatedProducts[index].quantity -= 1;
+      setProductList(updatedProducts);
+
+      const pointsToAddBack = selectedProduct.points;
+  
+      setStudentData(prevStudentData => ({
+        ...prevStudentData,
+        studentPoints: (parseInt(prevStudentData.studentPoints) + pointsToAddBack).toString()
+      }));
+    }
   };
+  
 
   const increaseQuantity = (index, productList, setProductList) => {
     const updatedProducts = [...productList];
@@ -75,7 +89,7 @@ function App() {
         studentPoints: remainingPoints.toString()
       }));
     } else {
-      alert("คุณมีคะแนนไม่เพียงพอที่จะซื้อสินค้านี้");
+      setShowMessageModal(true);
     }
   };
   
@@ -243,6 +257,12 @@ function App() {
       </div>
       {showOTPModal && (
         <OTPModal onClose={handleOTPClose} onSubmit={handleOTPSubmit} />
+      )}
+      {showMessageModal && (
+        <MessageModal 
+          message="คุณมีคะแนนไม่เพียงพอที่จะซื้อสินค้านี้" 
+          onClose={() => setShowMessageModal(false)} 
+        />
       )}
     </div>
   );
